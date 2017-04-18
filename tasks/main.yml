@@ -93,6 +93,7 @@
     priv: "{{ item.priv | default('*.*:ALL') }}"
     state: present
     host: "{{ item.host | default('localhost') }}"
+    encrypted: "{{ item.encrypted | default(false) }}"
   with_items: "{{ mysql_users }}"
   when: mysql_users|lower() != 'none'
 
@@ -103,6 +104,7 @@
     password: "{{ item.pass | default('foobar') }}  "
     priv: "*.*:REPLICATION SLAVE"
     state: present
+    encrypted: "{{ item.encrypted | default(false) }}"
   with_items: "{{ mysql_repl_user }}"
   when: mysql_repl_role == 'master'
 
